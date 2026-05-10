@@ -1,4 +1,4 @@
-import { test as setup, expect, defineConfig, devices } from '@playwright/test';
+import { test as setup, expect } from '@playwright/test';
 import { LoginPage } from '@pages/index';
 
 const AUTH_FILE = '.auth/user.json';
