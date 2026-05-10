@@ -11,7 +11,8 @@
     "paths": {
       "@pages/*": ["src/pages/*"],
       "@fixtures/*": ["src/fixtures/*"]
-    }
+    },
+    "types": ["node"]
   },
   "include": ["src/**/*", "tests/**/*", "playwright.config.ts"],
   "exclude": ["node_modules", "dist"]
