@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { BASE_URL } from '@fixtures/testData';
 
 export default defineConfig({
   testDir: './tests',
@@ -22,7 +23,7 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: process.env.BASE_URL ?? 'https://www.saucedemo.com',
+    baseURL: BASE_URL,
 
     // Capture a screenshot automatically whenever a test fails
     screenshot: 'only-on-failure',

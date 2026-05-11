@@ -30,7 +30,6 @@ export const USERS = {
 export const BASE_URL = requireEnv('BASE_URL');
 export const PASSWORD = requireEnv('PASSWORD');
 export const WRONG_PASSWORD = requireEnv('WRONG_PASSWORD');
-export const CI = requireEnv('CI');
 
 // ─── File paths ───────────────────────────────────────────────────────────────
 
