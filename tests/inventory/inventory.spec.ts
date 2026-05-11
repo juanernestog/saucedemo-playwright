@@ -1,4 +1,5 @@
 import { test, expect } from '../../src/fixtures';
+import { PRODUCTS } from '@fixtures/testData';
 
 test.describe('Product Catalogue', () => {
   test.beforeEach(async ({ page }) => {
@@ -37,7 +38,7 @@ test.describe('Product Catalogue', () => {
     page,
     inventoryPage,
   }) => {
-    await inventoryPage.addToCartByName('Sauce Labs Backpack');
+    await inventoryPage.addToCartByName(PRODUCTS.backpack);
     const count = await inventoryPage.getCartBadgeCount();
     expect(count).toBe(1);
   });
