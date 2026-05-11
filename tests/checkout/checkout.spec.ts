@@ -1,16 +1,10 @@
 import { test, expect } from '../../src/fixtures';
-import type { CustomerInfo } from '../../src/pages/CheckoutPage';
-
-const CUSTOMER: CustomerInfo = {
-  firstName: 'John',
-  lastName: 'Doe',
-  zipCode: '10001',
-};
+import { PRODUCTS, ERROR_MESSAGES, CUSTOMER } from '@fixtures/testData';
 
 test.describe('Checkout Flow', () => {
   test.beforeEach(async ({ page, inventoryPage }) => {
     await page.goto('/inventory.html');
-    await inventoryPage.addToCartByName('Sauce Labs Backpack');
+    await inventoryPage.addToCartByName(PRODUCTS.backpack);
   });
 
   test('complete checkout end-to-end', async ({ cartPage, checkoutPage }) => {
@@ -30,17 +24,17 @@ test.describe('Checkout Flow', () => {
     // Submit with empty first name
     await page.locator('[data-test="continue"]').click();
     await expect(page.locator('[data-test="error"]')).toContainText(
-      'First Name is required',
+      ERROR_MESSAGES.firstNameRequired,
     );
   });
 
   test('checkout requires last name', async ({ cartPage, page }) => {
     await cartPage.goto();
     await cartPage.proceedToCheckout();
-    await page.locator('[data-test="firstName"]').fill('John');
+    await page.locator('[data-test="firstName"]').fill(CUSTOMER.firstName);
     await page.locator('[data-test="continue"]').click();
     await expect(page.locator('[data-test="error"]')).toContainText(
-      'Last Name is required',
+      ERROR_MESSAGES.lastNameRequired,
     );
   });
 });
