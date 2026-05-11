@@ -1,5 +1,6 @@
 import { test as base, expect } from '@playwright/test';
 import { LoginPage, InventoryPage } from '../../src/pages';
+import { USERS, PASSWORD, TIMEOUTS } from '@fixtures/testData';
 
 // Override storageState — this test logs in as a different user
 base.use({ storageState: { cookies: [], origins: [] } });
@@ -21,7 +22,7 @@ base.describe('Performance Glitch User', () => {
       // 4 s buffer without being so permissive it defeats the purpose.
       const start = Date.now();
 
-      await loginPage.loginAs('performance_glitch_user', 'secret_sauce');
+      await loginPage.loginAs(USERS.perfGlitch, PASSWORD);
 
       await inventoryPage.assertOnInventoryPage();
 
@@ -34,8 +35,8 @@ base.describe('Performance Glitch User', () => {
 
       expect(
         elapsed,
-        `Inventory load exceeded 10 000 ms threshold (actual: ${elapsed} ms)`,
-      ).toBeLessThan(10_000);
+        `Inventory load exceeded ${TIMEOUTS.perfGlitchInventoryLoad} ms threshold (actual: ${elapsed} ms)`,
+      ).toBeLessThan(TIMEOUTS.perfGlitchInventoryLoad);
     },
   );
 });
