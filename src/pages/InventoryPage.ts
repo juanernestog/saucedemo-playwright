@@ -43,7 +43,7 @@ export class InventoryPage {
     const item = this.page.locator('[data-test="inventory-item"]', {
       has: this.page.locator(`text="${productName}"`),
     });
-    await item.locator('button').click();
+    await item.locator('button').click({ delay: 20 });
   }
 
   async getCartBadgeCount(): Promise<number> {

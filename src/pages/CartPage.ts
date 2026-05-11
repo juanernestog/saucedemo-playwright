@@ -5,7 +5,7 @@ export class CartPage {
   private readonly checkoutButton: Locator;
 
   constructor(private readonly page: Page) {
-    this.cartItems = page.locator('[data-test="cart-item"]');
+    this.cartItems = page.locator('[data-test="inventory-item"]');
     this.checkoutButton = page.locator('[data-test="checkout"]');
   }
 
@@ -24,10 +24,12 @@ export class CartPage {
   }
 
   async removeItemByName(productName: string): Promise<void> {
-    const item = this.page.locator('[data-test="cart-item"]', {
-      has: this.page.locator(`text="${productName}"`),
-    });
-    await item.locator('button[id^="remove"]').click();
+    const item = this.page.locator(
+      'button[data-test="remove-' +
+        productName.toLowerCase().replace(/ /g, '-') +
+        '"]',
+    );
+    await item.click();
   }
 
   async proceedToCheckout(): Promise<void> {

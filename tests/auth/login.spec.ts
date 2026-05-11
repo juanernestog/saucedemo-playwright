@@ -35,7 +35,9 @@ test.describe('Authentication', () => {
   });
 
   test('logout returns user to login page', async ({ page, inventoryPage }) => {
-    // This test DOES use storageState (standard login already done)
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.loginAs('standard_user', 'secret_sauce');
     await page.goto('/inventory.html');
     await inventoryPage.logout();
     await expect(page).toHaveURL('/');
