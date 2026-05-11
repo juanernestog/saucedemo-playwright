@@ -1,4 +1,5 @@
 import { test, expect } from '../../src/fixtures';
+import { PRODUCTS } from '@fixtures/testData';
 
 test.describe('Shopping Cart', () => {
   test.beforeEach(async ({ page }) => {
@@ -10,25 +11,25 @@ test.describe('Shopping Cart', () => {
     inventoryPage,
     cartPage,
   }) => {
-    await inventoryPage.addToCartByName('Sauce Labs Backpack');
+    await inventoryPage.addToCartByName(PRODUCTS.backpack);
     await cartPage.goto();
     const names = await cartPage.getItemNames();
-    expect(names).toContain('Sauce Labs Backpack');
+    expect(names).toContain(PRODUCTS.backpack);
   });
 
   test('removing an item from cart empties it', async ({
     inventoryPage,
     cartPage,
   }) => {
-    await inventoryPage.addToCartByName('Sauce Labs Backpack');
+    await inventoryPage.addToCartByName(PRODUCTS.backpack);
     await cartPage.goto();
-    await cartPage.removeItemByName('Sauce Labs Backpack');
+    await cartPage.removeItemByName(PRODUCTS.backpack);
     await cartPage.assertEmpty();
   });
 
   test('multiple items can be added', async ({ inventoryPage, cartPage }) => {
-    await inventoryPage.addToCartByName('Sauce Labs Backpack');
-    await inventoryPage.addToCartByName('Sauce Labs Bike Light');
+    await inventoryPage.addToCartByName(PRODUCTS.backpack);
+    await inventoryPage.addToCartByName(PRODUCTS.bikeLight);
     await cartPage.goto();
     expect(await cartPage.getItemCount()).toBe(2);
   });
